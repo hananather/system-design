@@ -5,10 +5,39 @@ A socket's identity is defined by three main pieces of information:
 - **Port number:** The number that identifies a specific application or process on that device.
 - **Transport protocol:** The rules for transferring data, most commonly either the Transmission Control Protocol (TCP) or User Datagram Protocol (UDP).
 
+```mermaid
+%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui', 'primaryColor':'#F8FAFC','primaryBorderColor':'#64748B','lineColor':'#94A3B8'}}}%%
+flowchart LR
+  subgraph S1["Socket Identity"]
+    direction LR
+    IP["IP Address"]:::dim --> SOCK[("Socket")]:::accent
+    PORT["Port Number"]:::dim --> SOCK
+    PROTO["Transport Protocol<br/>(TCP / UDP)"]:::dim --> SOCK
+  end
+
+  classDef accent fill:#EEF2FF,stroke:#6366F1,stroke-width:1.5px,color:#0F172A;
+  classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#0F172A;
+```
+
 Sockets behave differently based on the transport protocol they use: 
 - **TCP sockets (stream sockets):** These provide a reliable, connection-oriented service. TCP ensures that data is delivered in the correct order and that packets are re-sent if they are lost. This is used for applications like web browsing, email, and file transfers.
 - **UDP sockets (datagram sockets):** These offer a faster, connectionless service that does not guarantee data delivery or order. This is useful for applications where speed is more important than reliability, such as online gaming and live video streaming.
 - **WebSockets:** An advanced type of socket that provides a persistent, full-duplex communication channel over a single TCP connection. This allows for real-time, interactive communication between a client and a server. 
+
+```mermaid
+%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+flowchart LR
+  TCP["TCP (Stream)\nReliable, ordered\nConnection-oriented"]:::good
+  UDP["UDP (Datagram)\nBest-effort, unordered\nConnectionless"]:::warn
+  WS["WebSocket (over TCP)\nFull-duplex, persistent\nMessage framing"]:::accent
+
+  TCP --- WS
+  UDP --- WS
+
+  classDef good fill:#DCFCE7,stroke:#16A34A,stroke-width:1.2px,color:#064E3B;
+  classDef warn fill:#FEF9C3,stroke:#CA8A04,stroke-width:1.2px,color:#713F12;
+  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#1E1B4B;
+```
 
 **API Endpoint vs. Socket**
 
@@ -16,6 +45,21 @@ In order to use an API endpoint (the high-level logical address), the underlying
 - An API endpoint is a high-level concept (like a phone book entry), while a socket is the low-level, network-level implementation of a communication channel (the active phone call).
 - **API Endpoint:** A URL that identifies a specific resource or function within an API, like `https://api.github.com/users`. It abstracts away network details, allowing developers to focus on the data and function they want.
 - **Socket:** A low-level software construct bound to a specific IP address and port number. It represents the actual communication endpoint for sending and receiving raw network data. The operating system uses sockets to open connections, fulfilling higher-level API requests.
+
+```mermaid
+%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+flowchart TB
+  EP["API Endpoint\nhttps://api.github.com/users"]:::accent
+  HTTP["HTTP Message\n(GET/POST + Headers + Body)"]:::dim
+  OS["OS Networking Stack"]:::dim
+  SOCK[("Socket\nIP:Port + TCP/UDP")]:::highlight
+
+  EP --> HTTP --> OS --> SOCK
+
+  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#111827;
+  classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#111827;
+  classDef highlight fill:#EEF2FF,stroke:#4F46E5,stroke-width:1.5px,color:#111827;
+```
 
 
 
@@ -26,12 +70,44 @@ The API endpoint is the specific resource or function your application is reques
 2. **Protocol level:** The application constructs an HTTP message based on this endpoint. (Q: even if the endpoint is another service on the same server?)
 3. **Network level:** Your operating system performs a series of actions that include creating a socket, resolving the domain name `api.github.com` to an IP address, and initiating a TCP connection to the correct IP address and port (usually 443 for HTTPS) using that socket.
 
+```mermaid
+%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+sequenceDiagram
+  autonumber
+  participant App as Application
+  participant OS as OS / Networking
+  participant DNS as DNS
+  participant Srv as Remote Server
+
+  App->>OS: Create socket (target host:443)
+  OS->>DNS: Resolve api.github.com
+  DNS-->>OS: IP address
+  OS->>Srv: TCP handshake (SYN/SYN-ACK/ACK)
+  OS-->>App: Connected socket
+  App->>Srv: HTTP GET /users
+  Srv-->>App: 200 OK + response body
+  App->>OS: Close socket (FIN)
+```
+
 **Q: Does this also include on the same server? So different services on the same server are connected to each other via sockets?** 
 
 Yes, services on the same server also use sockets to communicate with each other. A socket is a fundamental mechanism for inter-process communication (IPC). 
 - **Across the network:** When services are on different machines, they use network sockets (e.g., TCP/IP) to communicate over a physical network.
 - **On the same server:** When services are on the same machine, they can also use network sockets to communicate. In this case, the communication travels through a special virtual network interface called the **loopback interface**, with the IP address `127.0.0.1` or the hostname `localhost`. The data never leaves the machine.
 - **Optimized communication:** For faster and more efficient communication between processes on the same machine, operating systems also provide **Unix domain sockets** or **named pipes**. These mechanisms bypass the network stack entirely, resulting in lower latency and overhead compared to network sockets. 
+
+```mermaid
+%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+flowchart LR
+  A[Service A / Process]:::proc
+  B[Service B / Process]:::proc
+
+  A -- "TCP over loopback\n127.0.0.1:8080" --> B
+  A -- "Unix Domain Socket\n/var/run/app.sock" --> B
+  A -- "Named Pipe / FIFO" --> B
+
+  classDef proc fill:#F8FAFC,stroke:#475569,stroke-width:1.2px,color:#0F172A;
+```
 
 **HTTP requests on the same server**
 
