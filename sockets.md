@@ -10,19 +10,17 @@ A socket's identity is defined by three main pieces of information:
   'theme': 'base',
   'themeVariables': {
     'background': '#ffffff',
-    'primaryColor': '#ffffff',
-    'primaryTextColor': '#111111',
-    'primaryBorderColor': '#111111',
-    'lineColor': '#111111',
-    'edgeLabelBackground': '#ffffff',
     'fontFamily': 'Inter, ui-sans-serif, system-ui'
   },
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
 }}%%
 flowchart LR
-  IP["IP Address"] --> SOCK[("Socket")]
-  PORT["Port Number"] --> SOCK
-  PROTO["Transport Protocol<br/>(TCP / UDP)"] --> SOCK
+  IP["IP Address"]:::dim --> SOCK[("Socket")]:::accent
+  PORT["Port Number"]:::dim --> SOCK
+  PROTO["Transport Protocol<br/>(TCP / UDP)"]:::dim --> SOCK
+
+  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#111827;
+  classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#111827;
 ```
 
 Sockets behave differently based on the transport protocol they use: 
@@ -35,22 +33,21 @@ Sockets behave differently based on the transport protocol they use:
   'theme': 'base',
   'themeVariables': {
     'background': '#ffffff',
-    'primaryColor': '#ffffff',
-    'primaryTextColor': '#111111',
-    'primaryBorderColor': '#111111',
-    'lineColor': '#111111',
-    'edgeLabelBackground': '#ffffff',
     'fontFamily': 'Inter, ui-sans-serif, system-ui'
   },
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
 }}%%
 flowchart LR
-  TCP["TCP (Stream)<br/>Reliable, ordered<br/>Connection-oriented"]
-  UDP["UDP (Datagram)<br/>Best-effort, unordered<br/>Connectionless"]
-  WS["WebSocket (over TCP)<br/>Full-duplex, persistent<br/>Message framing"]
+  TCP["TCP (Stream)<br/>Reliable, ordered<br/>Connection-oriented"]:::good
+  UDP["UDP (Datagram)<br/>Best-effort, unordered<br/>Connectionless"]:::warn
+  WS["WebSocket (over TCP)<br/>Full-duplex, persistent<br/>Message framing"]:::accent
 
   TCP --- WS
   UDP --- WS
+
+  classDef good fill:#DCFCE7,stroke:#16A34A,stroke-width:1.2px,color:#064E3B;
+  classDef warn fill:#FEF9C3,stroke:#CA8A04,stroke-width:1.2px,color:#713F12;
+  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#1E1B4B;
 ```
 
 **API Endpoint vs. Socket**
@@ -65,22 +62,21 @@ In order to use an API endpoint (the high-level logical address), the underlying
   'theme': 'base',
   'themeVariables': {
     'background': '#ffffff',
-    'primaryColor': '#ffffff',
-    'primaryTextColor': '#111111',
-    'primaryBorderColor': '#111111',
-    'lineColor': '#111111',
-    'edgeLabelBackground': '#ffffff',
     'fontFamily': 'Inter, ui-sans-serif, system-ui'
   },
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
 }}%%
 flowchart TB
-  EP["API Endpoint<br/>https://api.github.com/users"]
-  HTTP["HTTP Message<br/>(GET/POST + Headers + Body)"]
-  OS["OS Networking Stack"]
-  SOCK[("Socket<br/>IP:Port + TCP/UDP")]
+  EP["API Endpoint<br/>https://api.github.com/users"]:::accent
+  HTTP["HTTP Message<br/>(GET/POST + Headers + Body)"]:::dim
+  OS["OS Networking Stack"]:::dim
+  SOCK[("Socket<br/>IP:Port + TCP/UDP")]:::highlight
 
   EP --> HTTP --> OS --> SOCK
+
+  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#111827;
+  classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#111827;
+  classDef highlight fill:#EEF2FF,stroke:#4F46E5,stroke-width:1.5px,color:#111827;
 ```
 
 
@@ -97,14 +93,6 @@ The API endpoint is the specific resource or function your application is reques
   'theme': 'base',
   'themeVariables': {
     'background': '#ffffff',
-    'primaryColor': '#ffffff',
-    'primaryTextColor': '#111111',
-    'primaryBorderColor': '#111111',
-    'lineColor': '#111111',
-    'edgeLabelBackground': '#ffffff',
-    'actorBkg': '#ffffff',
-    'noteBkgColor': '#ffffff',
-    'altBackground': '#ffffff',
     'fontFamily': 'Inter, ui-sans-serif, system-ui'
   }
 }}%%
@@ -137,22 +125,19 @@ Yes, services on the same server also use sockets to communicate with each other
   'theme': 'base',
   'themeVariables': {
     'background': '#ffffff',
-    'primaryColor': '#ffffff',
-    'primaryTextColor': '#111111',
-    'primaryBorderColor': '#111111',
-    'lineColor': '#111111',
-    'edgeLabelBackground': '#ffffff',
     'fontFamily': 'Inter, ui-sans-serif, system-ui'
   },
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 28, 'htmlLabels': true }
 }}%%
 flowchart LR
-  A["Service A / Process"]
-  B["Service B / Process"]
+  A["Service A / Process"]:::proc
+  B["Service B / Process"]:::proc
 
   A -- "TCP over loopback<br/>127.0.0.1:8080" --> B
   A -- "Unix Domain Socket<br/>/var/run/app.sock" --> B
   A -- "Named Pipe / FIFO" --> B
+
+  classDef proc fill:#F8FAFC,stroke:#475569,stroke-width:1.2px,color:#0F172A;
 ```
 
 **HTTP requests on the same server**
