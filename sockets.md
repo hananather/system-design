@@ -12,6 +12,7 @@ A socket's identity is defined by three main pieces of information:
     'background': '#ffffff',
     'fontFamily': 'Inter, ui-sans-serif, system-ui'
   },
+  'themeCSS': 'svg { background: #ffffff !important; }',
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
 }}%%
 flowchart LR
