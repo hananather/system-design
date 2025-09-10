@@ -43,16 +43,20 @@ Sockets behave differently based on the transport protocol they use:
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
 }}%%
 flowchart LR
-  TCP["TCP (Stream)<br/>Reliable, ordered<br/>Connection-oriented"]:::good
-  UDP["UDP (Datagram)<br/>Best-effort, unordered<br/>Connectionless"]:::warn
-  WS["WebSocket (over TCP)<br/>Full-duplex, persistent<br/>Message framing"]:::accent
+  subgraph CANVAS[ ]
+    direction LR
+    TCP["TCP (Stream)<br/>Reliable, ordered<br/>Connection-oriented"]:::good
+    UDP["UDP (Datagram)<br/>Best-effort, unordered<br/>Connectionless"]:::warn
+    WS["WebSocket (over TCP)<br/>Full-duplex, persistent<br/>Message framing"]:::accent
 
-  TCP --- WS
-  UDP --- WS
+    TCP --- WS
+    UDP --- WS
+  end
 
   classDef good fill:#DCFCE7,stroke:#16A34A,stroke-width:1.2px,color:#064E3B;
   classDef warn fill:#FEF9C3,stroke:#CA8A04,stroke-width:1.2px,color:#713F12;
   classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#1E1B4B;
+  style CANVAS fill:#ffffff,stroke:#ffffff,stroke-width:0px;
 ```
 
 **API Endpoint vs. Socket**
@@ -72,16 +76,20 @@ In order to use an API endpoint (the high-level logical address), the underlying
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
 }}%%
 flowchart TB
-  EP["API Endpoint<br/>https://api.github.com/users"]:::accent
-  HTTP["HTTP Message<br/>(GET/POST + Headers + Body)"]:::dim
-  OS["OS Networking Stack"]:::dim
-  SOCK[("Socket<br/>IP:Port + TCP/UDP")]:::highlight
+  subgraph CANVAS[ ]
+    direction TB
+    EP["API Endpoint<br/>https://api.github.com/users"]:::accent
+    HTTP["HTTP Message<br/>(GET/POST + Headers + Body)"]:::dim
+    OS["OS Networking Stack"]:::dim
+    SOCK[("Socket<br/>IP:Port + TCP/UDP")]:::highlight
 
-  EP --> HTTP --> OS --> SOCK
+    EP --> HTTP --> OS --> SOCK
+  end
 
-  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#111827;
-  classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#111827;
-  classDef highlight fill:#EEF2FF,stroke:#4F46E5,stroke-width:1.5px,color:#111827;
+  classDef accent fill:#DBEAFE,stroke:#2563EB,stroke-width:1.3px,color:#0B1B36;
+  classDef dim fill:#F8FAFC,stroke:#CBD5E1,stroke-width:1.1px,color:#0B1B36;
+  classDef highlight fill:#EDE9FE,stroke:#7C3AED,stroke-width:1.4px,color:#2E1065;
+  style CANVAS fill:#ffffff,stroke:#ffffff,stroke-width:0px;
 ```
 
 
@@ -103,19 +111,21 @@ The API endpoint is the specific resource or function your application is reques
 }}%%
 sequenceDiagram
   autonumber
-  participant App as Application
-  participant OS as OS / Networking
-  participant DNS as DNS
-  participant Srv as Remote Server
+  rect #ffffff
+    participant App as Application
+    participant OS as OS / Networking
+    participant DNS as DNS
+    participant Srv as Remote Server
 
-  App->>OS: Create socket (host:443)
-  OS->>DNS: Resolve api.github.com
-  DNS-->>OS: IP address
-  OS->>Srv: TCP handshake (SYN/SYN-ACK/ACK)
-  OS-->>App: Connected socket
-  App->>Srv: HTTP GET /users
-  Srv-->>App: 200 OK + response body
-  App->>OS: Close socket (FIN)
+    App->>OS: Create socket (host:443)
+    OS->>DNS: Resolve api.github.com
+    DNS-->>OS: IP address
+    OS->>Srv: TCP handshake (SYN/SYN-ACK/ACK)
+    OS-->>App: Connected socket
+    App->>Srv: HTTP GET /users
+    Srv-->>App: 200 OK + response body
+    App->>OS: Close socket (FIN)
+  end
 ```
 
 **Q: Does this also include on the same server? So different services on the same server are connected to each other via sockets?** 
@@ -135,14 +145,18 @@ Yes, services on the same server also use sockets to communicate with each other
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 28, 'htmlLabels': true }
 }}%%
 flowchart LR
-  A["Service A / Process"]:::proc
-  B["Service B / Process"]:::proc
+  subgraph CANVAS[ ]
+    direction LR
+    A["Service A / Process"]:::proc
+    B["Service B / Process"]:::proc
 
-  A -- "TCP over loopback<br/>127.0.0.1:8080" --> B
-  A -- "Unix Domain Socket<br/>/var/run/app.sock" --> B
-  A -- "Named Pipe / FIFO" --> B
+    A -- "TCP over loopback<br/>127.0.0.1:8080" --> B
+    A -- "Unix Domain Socket<br/>/var/run/app.sock" --> B
+    A -- "Named Pipe / FIFO" --> B
+  end
 
-  classDef proc fill:#F8FAFC,stroke:#475569,stroke-width:1.2px,color:#0F172A;
+  classDef proc fill:#F0FDFA,stroke:#0E7490,stroke-width:1.2px,color:#083344;
+  style CANVAS fill:#ffffff,stroke:#ffffff,stroke-width:0px;
 ```
 
 **HTTP requests on the same server**
