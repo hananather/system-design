@@ -6,7 +6,19 @@ A socket's identity is defined by three main pieces of information:
 - **Transport protocol:** The rules for transferring data, most commonly either the Transmission Control Protocol (TCP) or User Datagram Protocol (UDP).
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#ffffff',
+    'primaryColor': '#ffffff',
+    'primaryTextColor': '#111111',
+    'primaryBorderColor': '#111111',
+    'lineColor': '#111111',
+    'edgeLabelBackground': '#ffffff',
+    'fontFamily': 'Inter, ui-sans-serif, system-ui'
+  },
+  'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
+}}%%
 flowchart LR
   IP["IP Address"] --> SOCK[("Socket")]
   PORT["Port Number"] --> SOCK
@@ -19,7 +31,19 @@ Sockets behave differently based on the transport protocol they use:
 - **WebSockets:** An advanced type of socket that provides a persistent, full-duplex communication channel over a single TCP connection. This allows for real-time, interactive communication between a client and a server. 
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#ffffff',
+    'primaryColor': '#ffffff',
+    'primaryTextColor': '#111111',
+    'primaryBorderColor': '#111111',
+    'lineColor': '#111111',
+    'edgeLabelBackground': '#ffffff',
+    'fontFamily': 'Inter, ui-sans-serif, system-ui'
+  },
+  'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
+}}%%
 flowchart LR
   TCP["TCP (Stream)<br/>Reliable, ordered<br/>Connection-oriented"]
   UDP["UDP (Datagram)<br/>Best-effort, unordered<br/>Connectionless"]
@@ -37,7 +61,19 @@ In order to use an API endpoint (the high-level logical address), the underlying
 - **Socket:** A low-level software construct bound to a specific IP address and port number. It represents the actual communication endpoint for sending and receiving raw network data. The operating system uses sockets to open connections, fulfilling higher-level API requests.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#ffffff',
+    'primaryColor': '#ffffff',
+    'primaryTextColor': '#111111',
+    'primaryBorderColor': '#111111',
+    'lineColor': '#111111',
+    'edgeLabelBackground': '#ffffff',
+    'fontFamily': 'Inter, ui-sans-serif, system-ui'
+  },
+  'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
+}}%%
 flowchart TB
   EP["API Endpoint<br/>https://api.github.com/users"]
   HTTP["HTTP Message<br/>(GET/POST + Headers + Body)"]
@@ -57,7 +93,21 @@ The API endpoint is the specific resource or function your application is reques
 3. **Network level:** Your operating system performs a series of actions that include creating a socket, resolving the domain name `api.github.com` to an IP address, and initiating a TCP connection to the correct IP address and port (usually 443 for HTTPS) using that socket.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#ffffff',
+    'primaryColor': '#ffffff',
+    'primaryTextColor': '#111111',
+    'primaryBorderColor': '#111111',
+    'lineColor': '#111111',
+    'edgeLabelBackground': '#ffffff',
+    'actorBkg': '#ffffff',
+    'noteBkgColor': '#ffffff',
+    'altBackground': '#ffffff',
+    'fontFamily': 'Inter, ui-sans-serif, system-ui'
+  }
+}}%%
 sequenceDiagram
   autonumber
   participant App as Application
@@ -83,10 +133,22 @@ Yes, services on the same server also use sockets to communicate with each other
 - **Optimized communication:** For faster and more efficient communication between processes on the same machine, operating systems also provide **Unix domain sockets** or **named pipes**. These mechanisms bypass the network stack entirely, resulting in lower latency and overhead compared to network sockets. 
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#ffffff',
+    'primaryColor': '#ffffff',
+    'primaryTextColor': '#111111',
+    'primaryBorderColor': '#111111',
+    'lineColor': '#111111',
+    'edgeLabelBackground': '#ffffff',
+    'fontFamily': 'Inter, ui-sans-serif, system-ui'
+  },
+  'flowchart': { 'useMaxWidth': false, 'diagramPadding': 28, 'htmlLabels': true }
+}}%%
 flowchart LR
-  A[Service A / Process]
-  B[Service B / Process]
+  A["Service A / Process"]
+  B["Service B / Process"]
 
   A -- "TCP over loopback<br/>127.0.0.1:8080" --> B
   A -- "Unix Domain Socket<br/>/var/run/app.sock" --> B
