@@ -6,17 +6,11 @@ A socket's identity is defined by three main pieces of information:
 - **Transport protocol:** The rules for transferring data, most commonly either the Transmission Control Protocol (TCP) or User Datagram Protocol (UDP).
 
 ```mermaid
-%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui', 'primaryColor':'#F8FAFC','primaryBorderColor':'#64748B','lineColor':'#94A3B8'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
 flowchart LR
-  subgraph S1["Socket Identity"]
-    direction LR
-    IP["IP Address"]:::dim --> SOCK[("Socket")]:::accent
-    PORT["Port Number"]:::dim --> SOCK
-    PROTO["Transport Protocol<br/>(TCP / UDP)"]:::dim --> SOCK
-  end
-
-  classDef accent fill:#EEF2FF,stroke:#6366F1,stroke-width:1.5px,color:#0F172A;
-  classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#0F172A;
+  IP["IP Address"] --> SOCK[("Socket")]
+  PORT["Port Number"] --> SOCK
+  PROTO["Transport Protocol<br/>(TCP / UDP)"] --> SOCK
 ```
 
 Sockets behave differently based on the transport protocol they use: 
@@ -25,18 +19,14 @@ Sockets behave differently based on the transport protocol they use:
 - **WebSockets:** An advanced type of socket that provides a persistent, full-duplex communication channel over a single TCP connection. This allows for real-time, interactive communication between a client and a server. 
 
 ```mermaid
-%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
 flowchart LR
-  TCP["TCP (Stream)\nReliable, ordered\nConnection-oriented"]:::good
-  UDP["UDP (Datagram)\nBest-effort, unordered\nConnectionless"]:::warn
-  WS["WebSocket (over TCP)\nFull-duplex, persistent\nMessage framing"]:::accent
+  TCP["TCP (Stream)<br/>Reliable, ordered<br/>Connection-oriented"]
+  UDP["UDP (Datagram)<br/>Best-effort, unordered<br/>Connectionless"]
+  WS["WebSocket (over TCP)<br/>Full-duplex, persistent<br/>Message framing"]
 
   TCP --- WS
   UDP --- WS
-
-  classDef good fill:#DCFCE7,stroke:#16A34A,stroke-width:1.2px,color:#064E3B;
-  classDef warn fill:#FEF9C3,stroke:#CA8A04,stroke-width:1.2px,color:#713F12;
-  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#1E1B4B;
 ```
 
 **API Endpoint vs. Socket**
@@ -47,18 +37,14 @@ In order to use an API endpoint (the high-level logical address), the underlying
 - **Socket:** A low-level software construct bound to a specific IP address and port number. It represents the actual communication endpoint for sending and receiving raw network data. The operating system uses sockets to open connections, fulfilling higher-level API requests.
 
 ```mermaid
-%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
 flowchart TB
-  EP["API Endpoint\nhttps://api.github.com/users"]:::accent
-  HTTP["HTTP Message\n(GET/POST + Headers + Body)"]:::dim
-  OS["OS Networking Stack"]:::dim
-  SOCK[("Socket\nIP:Port + TCP/UDP")]:::highlight
+  EP["API Endpoint<br/>https://api.github.com/users"]
+  HTTP["HTTP Message<br/>(GET/POST + Headers + Body)"]
+  OS["OS Networking Stack"]
+  SOCK[("Socket<br/>IP:Port + TCP/UDP")]
 
   EP --> HTTP --> OS --> SOCK
-
-  classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#111827;
-  classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#111827;
-  classDef highlight fill:#EEF2FF,stroke:#4F46E5,stroke-width:1.5px,color:#111827;
 ```
 
 
@@ -71,7 +57,7 @@ The API endpoint is the specific resource or function your application is reques
 3. **Network level:** Your operating system performs a series of actions that include creating a socket, resolving the domain name `api.github.com` to an IP address, and initiating a TCP connection to the correct IP address and port (usually 443 for HTTPS) using that socket.
 
 ```mermaid
-%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
 sequenceDiagram
   autonumber
   participant App as Application
@@ -79,7 +65,7 @@ sequenceDiagram
   participant DNS as DNS
   participant Srv as Remote Server
 
-  App->>OS: Create socket (target host:443)
+  App->>OS: Create socket (host:443)
   OS->>DNS: Resolve api.github.com
   DNS-->>OS: IP address
   OS->>Srv: TCP handshake (SYN/SYN-ACK/ACK)
@@ -97,16 +83,14 @@ Yes, services on the same server also use sockets to communicate with each other
 - **Optimized communication:** For faster and more efficient communication between processes on the same machine, operating systems also provide **Unix domain sockets** or **named pipes**. These mechanisms bypass the network stack entirely, resulting in lower latency and overhead compared to network sockets. 
 
 ```mermaid
-%%{init: {'theme':'neutral','themeVariables': { 'fontFamily': 'Inter, ui-sans-serif, system-ui'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff', 'fontFamily': 'Inter, ui-sans-serif, system-ui' }}}%%
 flowchart LR
-  A[Service A / Process]:::proc
-  B[Service B / Process]:::proc
+  A[Service A / Process]
+  B[Service B / Process]
 
-  A -- "TCP over loopback\n127.0.0.1:8080" --> B
-  A -- "Unix Domain Socket\n/var/run/app.sock" --> B
+  A -- "TCP over loopback<br/>127.0.0.1:8080" --> B
+  A -- "Unix Domain Socket<br/>/var/run/app.sock" --> B
   A -- "Named Pipe / FIFO" --> B
-
-  classDef proc fill:#F8FAFC,stroke:#475569,stroke-width:1.2px,color:#0F172A;
 ```
 
 **HTTP requests on the same server**
