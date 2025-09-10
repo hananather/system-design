@@ -16,12 +16,16 @@ A socket's identity is defined by three main pieces of information:
   'flowchart': { 'useMaxWidth': false, 'diagramPadding': 24, 'htmlLabels': true }
 }}%%
 flowchart LR
-  IP["IP Address"]:::dim --> SOCK[("Socket")]:::accent
-  PORT["Port Number"]:::dim --> SOCK
-  PROTO["Transport Protocol<br/>(TCP / UDP)"]:::dim --> SOCK
+  subgraph CANVAS[ ]
+    direction LR
+    IP["IP Address"]:::dim --> SOCK[("Socket")]:::accent
+    PORT["Port Number"]:::dim --> SOCK
+    PROTO["Transport Protocol<br/>(TCP / UDP)"]:::dim --> SOCK
+  end
 
   classDef accent fill:#E0E7FF,stroke:#6366F1,stroke-width:1.5px,color:#111827;
   classDef dim fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#111827;
+  style CANVAS fill:#ffffff,stroke:#ffffff,stroke-width:0px;
 ```
 
 Sockets behave differently based on the transport protocol they use: 
