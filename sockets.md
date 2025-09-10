@@ -106,17 +106,24 @@ The API endpoint is the specific resource or function your application is reques
   'theme': 'base',
   'themeVariables': {
     'background': '#ffffff',
-    'fontFamily': 'Inter, ui-sans-serif, system-ui'
+    'fontFamily': 'Inter, ui-sans-serif, system-ui',
+    'actorBkg': '#E0F2FE',
+    'actorBorder': '#0284C7',
+    'actorTextColor': '#0C4A6E',
+    'sequenceNumberColor': '#111827',
+    'messageTextColor': '#111827',
+    'noteBkgColor': '#ffffff',
+    'noteTextColor': '#111827'
   }
 }}%%
 sequenceDiagram
   autonumber
-  rect #ffffff
-    participant App as Application
-    participant OS as OS / Networking
-    participant DNS as DNS
-    participant Srv as Remote Server
+  participant App as Application
+  participant OS as OS / Networking
+  participant DNS as DNS
+  participant Srv as Remote Server
 
+  rect rgba(255,255,255,1)
     App->>OS: Create socket (host:443)
     OS->>DNS: Resolve api.github.com
     DNS-->>OS: IP address
