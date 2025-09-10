@@ -110,11 +110,12 @@ The API endpoint is the specific resource or function your application is reques
     'actorBkg': '#E0F2FE',
     'actorBorder': '#0284C7',
     'actorTextColor': '#0C4A6E',
-    'sequenceNumberColor': '#111827',
+    'sequenceNumberColor': '#ffffff',
     'messageTextColor': '#111827',
     'noteBkgColor': '#ffffff',
     'noteTextColor': '#111827'
-  }
+  },
+  'themeCSS': '.sequenceNumber { fill: #ffffff !important; }'
 }}%%
 sequenceDiagram
   autonumber
