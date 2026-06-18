@@ -1,3 +1,9 @@
 # system-design
 
-- [Data-Intensive Systems](data-intensive-systems.md)
+## Sections
+
+1. [Data-Intensive Systems](01-data-intensive-systems/data-intensive-systems.md)
+
+## Other Notes
+
+- [System Design](System%20Design/)
