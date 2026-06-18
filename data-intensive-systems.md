@@ -100,6 +100,22 @@ These notes are a working knowledge bank for data-intensive system design. The g
 
 - The basic idea is to keep the transactional database focused on serving the live application, while the data warehouse supports reporting, analysis, and decision-making.
 
+- A data warehouse gives analysts a place to query company data without putting load on the online transaction systems.
+
+- Data warehouses store data differently from transaction databases because analytical queries usually need to scan, aggregate, and compare large amounts of data.
+
+- A data warehouse usually contains a read-only copy of data from many online transaction systems across the company.
+
+- Data is moved into the warehouse through a pipeline:
+  - extract data from source transaction systems
+  - transform it into a schema that is easier to analyze
+  - clean up inconsistencies or messy source data
+  - load it into the data warehouse
+
+- This process is commonly called extract, transform, load, or ETL.
+
+- Sometimes the order changes, and the data is loaded before it is transformed, but the important idea is that data is copied out of operational systems and prepared for analysis elsewhere.
+
 ## Terminology: Frontends and Backends
 
 - Much of data-intensive system design relates to backend development.
