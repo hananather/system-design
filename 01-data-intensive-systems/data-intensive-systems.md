@@ -99,6 +99,10 @@ These notes are a working knowledge bank for **data-intensive system design**. T
 
 ## Data Warehousing
 
+![ETL into a data warehouse](assets/data-warehouse-etl.svg)
+
+_Figure: Operational systems feed a separate analytical data warehouse through an ETL pipeline._
+
 - Historically, the same **database** was often used for both **transaction processing** and **analytical queries**.
 
 - **SQL** made this possible because it was flexible enough to support both application queries and analytical queries.

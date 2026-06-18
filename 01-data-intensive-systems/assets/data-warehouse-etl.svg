@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" role="img" aria-labelledby="title desc">
+  <title id="title">ETL into a data warehouse</title>
+  <desc id="desc">Operational applications write to separate databases. ETL jobs extract, transform, and load data into a data warehouse. Analysts query the warehouse instead of the operational databases.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#222222" />
+    </marker>
+    <style>
+      text {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        fill: #1f2937;
+      }
+      .title { font-size: 26px; font-weight: 750; letter-spacing: 0.01em; }
+      .label { font-size: 18px; font-weight: 650; }
+      .small { font-size: 15px; font-weight: 500; }
+      .lane { font-size: 22px; font-weight: 750; letter-spacing: 0.02em; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 8; }
+      .system-boundary { fill: none; stroke: #6b7280; stroke-width: 2; stroke-dasharray: 7 10; }
+      .warehouse-zone { fill: #f8fafc; stroke: #6b7280; stroke-width: 2; stroke-dasharray: 7 10; }
+      .db-fill { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .warehouse-fill { fill: #eef6ff; stroke: #1f2937; stroke-width: 2; }
+      .arrow { fill: none; stroke: #222222; stroke-width: 2.2; marker-end: url(#arrow); }
+      .arrow-soft { fill: none; stroke: #374151; stroke-width: 2; marker-end: url(#arrow); }
+      .user-head { stroke: #111827; stroke-width: 2; }
+      .user-body { stroke: #111827; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="1000" fill="#ffffff" />
+
+  <text x="500" y="48" text-anchor="middle" class="title">ETL into a Data Warehouse</text>
+
+  <text x="45" y="150" class="lane" transform="rotate(-90 45 150)">Users</text>
+  <text x="45" y="360" class="lane" transform="rotate(-90 45 360)">Operational systems</text>
+  <text x="45" y="700" class="lane" transform="rotate(-90 45 700)">Analytical systems</text>
+
+  <!-- Users -->
+  <g transform="translate(220 100)">
+    <circle class="user-head" cx="0" cy="0" r="18" fill="#f7b267" />
+    <path class="user-body" d="M -30 50 Q 0 25 30 50 L 25 72 L -25 72 Z" fill="#f6c453" />
+    <text x="45" y="6" class="small">Customer</text>
+  </g>
+
+  <g transform="translate(500 100)">
+    <circle class="user-head" cx="0" cy="0" r="18" fill="#f5b7a5" />
+    <path class="user-body" d="M -30 50 Q 0 25 30 50 L 25 72 L -25 72 Z" fill="#ef4444" />
+    <text x="45" y="0" class="small">Warehouse</text>
+    <text x="45" y="22" class="small">worker</text>
+  </g>
+
+  <g transform="translate(780 100)">
+    <circle class="user-head" cx="0" cy="0" r="18" fill="#b7794a" />
+    <path class="user-body" d="M -30 50 Q 0 25 30 50 L 25 72 L -25 72 Z" fill="#86d36f" />
+    <text x="45" y="0" class="small">Truck</text>
+    <text x="45" y="22" class="small">driver</text>
+  </g>
+
+  <!-- Operational systems -->
+  <g>
+    <rect class="system-boundary" x="115" y="200" width="220" height="260" />
+    <rect class="box" x="135" y="215" width="180" height="54" />
+    <text x="225" y="249" text-anchor="middle" class="label">Ecommerce site</text>
+    <path class="arrow" d="M 220 175 L 220 210" />
+    <path class="arrow" d="M 225 269 L 225 323" />
+    <ellipse class="db-fill" cx="225" cy="330" rx="36" ry="12" />
+    <path class="db-fill" d="M 189 330 L 189 386 Q 225 407 261 386 L 261 330" />
+    <ellipse class="db-fill" cx="225" cy="386" rx="36" ry="12" />
+    <text x="176" y="340" text-anchor="end" class="label">Sales</text>
+    <text x="176" y="367" text-anchor="end" class="label">DB</text>
+  </g>
+
+  <g>
+    <rect class="system-boundary" x="395" y="200" width="220" height="260" />
+    <rect class="box" x="415" y="215" width="180" height="54" />
+    <text x="505" y="249" text-anchor="middle" class="label">Stock app</text>
+    <path class="arrow" d="M 500 175 L 500 210" />
+    <path class="arrow" d="M 505 269 L 505 323" />
+    <ellipse class="db-fill" cx="505" cy="330" rx="36" ry="12" />
+    <path class="db-fill" d="M 469 330 L 469 386 Q 505 407 541 386 L 541 330" />
+    <ellipse class="db-fill" cx="505" cy="386" rx="36" ry="12" />
+    <text x="456" y="340" text-anchor="end" class="label">Inventory</text>
+    <text x="456" y="367" text-anchor="end" class="label">DB</text>
+  </g>
+
+  <g>
+    <rect class="system-boundary" x="675" y="200" width="220" height="260" />
+    <rect class="box" x="695" y="215" width="180" height="54" />
+    <text x="785" y="249" text-anchor="middle" class="label">Route planner</text>
+    <path class="arrow" d="M 780 175 L 780 210" />
+    <path class="arrow" d="M 785 269 L 785 323" />
+    <ellipse class="db-fill" cx="785" cy="330" rx="36" ry="12" />
+    <path class="db-fill" d="M 749 330 L 749 386 Q 785 407 821 386 L 821 330" />
+    <ellipse class="db-fill" cx="785" cy="386" rx="36" ry="12" />
+    <text x="736" y="340" text-anchor="end" class="label">Geo</text>
+    <text x="736" y="367" text-anchor="end" class="label">DB</text>
+  </g>
+
+  <!-- Analytical systems -->
+  <rect class="warehouse-zone" x="250" y="535" width="650" height="350" />
+
+  <path class="arrow-soft" d="M 225 398 C 225 500 285 560 320 618" />
+  <text x="262" y="592" class="small">Extract</text>
+
+  <path class="arrow-soft" d="M 505 398 C 505 480 502 540 500 618" />
+  <text x="515" y="592" class="small">Extract</text>
+
+  <path class="arrow-soft" d="M 785 398 C 785 500 720 560 680 618" />
+  <text x="735" y="592" class="small">Extract</text>
+
+  <rect class="box" x="285" y="620" width="135" height="50" />
+  <text x="352" y="651" text-anchor="middle" class="small">Transform</text>
+
+  <rect class="box" x="462" y="620" width="135" height="50" />
+  <text x="530" y="651" text-anchor="middle" class="small">Transform</text>
+
+  <rect class="box" x="640" y="620" width="135" height="50" />
+  <text x="708" y="651" text-anchor="middle" class="small">Transform</text>
+
+  <path class="arrow-soft" d="M 352 670 C 415 700 465 725 510 752" />
+  <text x="438" y="720" class="small">Load</text>
+
+  <path class="arrow-soft" d="M 530 670 L 530 745" />
+  <text x="545" y="720" class="small">Load</text>
+
+  <path class="arrow-soft" d="M 708 670 C 640 700 600 725 560 752" />
+  <text x="622" y="720" class="small">Load</text>
+
+  <ellipse class="warehouse-fill" cx="535" cy="765" rx="55" ry="16" />
+  <path class="warehouse-fill" d="M 480 765 L 480 825 Q 535 852 590 825 L 590 765" />
+  <ellipse class="warehouse-fill" cx="535" cy="825" rx="55" ry="16" />
+  <text x="615" y="806" class="label">Data warehouse</text>
+
+  <g transform="translate(150 765)">
+    <circle class="user-head" cx="0" cy="0" r="17" fill="#f5b7a5" />
+    <path class="user-body" d="M -28 48 Q 0 24 28 48 L 24 72 L -24 72 Z" fill="#fb6b57" />
+    <text x="-95" y="24" class="small">Business</text>
+    <text x="-86" y="46" class="small">analyst</text>
+  </g>
+
+  <path class="arrow" d="M 180 810 L 472 810" />
+  <text x="305" y="795" class="small">Query</text>
+
+  <text x="500" y="950" text-anchor="middle" class="small">A simplified outline of ETL into a data warehouse</text>
+</svg>
