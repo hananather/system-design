@@ -63,7 +63,7 @@ These notes are a working knowledge bank for data-intensive system design. The g
 
 - Not every contrast matters equally for every system. Some questions are lightweight, while others drive the architecture.
 
-## Operational Systems vs Analytical Systems
+## Transaction Processing vs Analytical Processing
 
 - Operational systems are optimized for serving the live application.
 
