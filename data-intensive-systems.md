@@ -86,6 +86,20 @@ These notes are a working knowledge bank for data-intensive system design. The g
 
 - The point is that the workload is different, so the storage layout, query engine, update strategy, and operational trade-offs are often different too.
 
+## Data Warehousing
+
+- Historically, the same database was often used for both transaction processing and analytical queries.
+
+- SQL made this possible because it was flexible enough to support both application queries and analytical queries.
+
+- Over time, many companies moved away from running analytics directly on the OLTP system.
+
+- Instead, they started copying data into a separate database designed for analytical workloads.
+
+- That separate analytical database is called a data warehouse.
+
+- The basic idea is to keep the transactional database focused on serving the live application, while the data warehouse supports reporting, analysis, and decision-making.
+
 ## Terminology: Frontends and Backends
 
 - Much of data-intensive system design relates to backend development.
