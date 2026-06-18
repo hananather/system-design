@@ -39,60 +39,58 @@
   <g transform="translate(220 100)">
     <circle class="user-head" cx="0" cy="0" r="18" fill="#f7b267" />
     <path class="user-body" d="M -30 50 Q 0 25 30 50 L 25 72 L -25 72 Z" fill="#f6c453" />
-    <text x="45" y="6" class="small">Customer</text>
+    <text x="45" y="6" class="small">External user</text>
   </g>
 
   <g transform="translate(500 100)">
     <circle class="user-head" cx="0" cy="0" r="18" fill="#f5b7a5" />
     <path class="user-body" d="M -30 50 Q 0 25 30 50 L 25 72 L -25 72 Z" fill="#ef4444" />
-    <text x="45" y="0" class="small">Warehouse</text>
-    <text x="45" y="22" class="small">worker</text>
+    <text x="45" y="12" class="small">Employee</text>
   </g>
 
   <g transform="translate(780 100)">
     <circle class="user-head" cx="0" cy="0" r="18" fill="#b7794a" />
     <path class="user-body" d="M -30 50 Q 0 25 30 50 L 25 72 L -25 72 Z" fill="#86d36f" />
-    <text x="45" y="0" class="small">Truck</text>
-    <text x="45" y="22" class="small">driver</text>
+    <text x="45" y="12" class="small">Operator</text>
   </g>
 
   <!-- Operational systems -->
   <g>
     <rect class="system-boundary" x="115" y="200" width="220" height="260" />
     <rect class="box" x="135" y="215" width="180" height="54" />
-    <text x="225" y="249" text-anchor="middle" class="label">Ecommerce site</text>
+    <text x="225" y="249" text-anchor="middle" class="label">User-facing app</text>
     <path class="arrow" d="M 220 175 L 220 210" />
     <path class="arrow" d="M 225 269 L 225 323" />
     <ellipse class="db-fill" cx="225" cy="330" rx="36" ry="12" />
     <path class="db-fill" d="M 189 330 L 189 386 Q 225 407 261 386 L 261 330" />
     <ellipse class="db-fill" cx="225" cy="386" rx="36" ry="12" />
-    <text x="176" y="340" text-anchor="end" class="label">Sales</text>
+    <text x="176" y="340" text-anchor="end" class="label">App</text>
     <text x="176" y="367" text-anchor="end" class="label">DB</text>
   </g>
 
   <g>
     <rect class="system-boundary" x="395" y="200" width="220" height="260" />
     <rect class="box" x="415" y="215" width="180" height="54" />
-    <text x="505" y="249" text-anchor="middle" class="label">Stock app</text>
+    <text x="505" y="249" text-anchor="middle" class="label">Internal app</text>
     <path class="arrow" d="M 500 175 L 500 210" />
     <path class="arrow" d="M 505 269 L 505 323" />
     <ellipse class="db-fill" cx="505" cy="330" rx="36" ry="12" />
     <path class="db-fill" d="M 469 330 L 469 386 Q 505 407 541 386 L 541 330" />
     <ellipse class="db-fill" cx="505" cy="386" rx="36" ry="12" />
-    <text x="456" y="340" text-anchor="end" class="label">Inventory</text>
+    <text x="456" y="340" text-anchor="end" class="label">Internal</text>
     <text x="456" y="367" text-anchor="end" class="label">DB</text>
   </g>
 
   <g>
     <rect class="system-boundary" x="675" y="200" width="220" height="260" />
     <rect class="box" x="695" y="215" width="180" height="54" />
-    <text x="785" y="249" text-anchor="middle" class="label">Route planner</text>
+    <text x="785" y="249" text-anchor="middle" class="label">Operations app</text>
     <path class="arrow" d="M 780 175 L 780 210" />
     <path class="arrow" d="M 785 269 L 785 323" />
     <ellipse class="db-fill" cx="785" cy="330" rx="36" ry="12" />
     <path class="db-fill" d="M 749 330 L 749 386 Q 785 407 821 386 L 821 330" />
     <ellipse class="db-fill" cx="785" cy="386" rx="36" ry="12" />
-    <text x="736" y="340" text-anchor="end" class="label">Geo</text>
+    <text x="736" y="340" text-anchor="end" class="label">Ops</text>
     <text x="736" y="367" text-anchor="end" class="label">DB</text>
   </g>
 
